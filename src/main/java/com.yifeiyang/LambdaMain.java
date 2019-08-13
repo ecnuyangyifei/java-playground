@@ -22,6 +22,8 @@ public class LambdaMain {
 
         Callable<Integer> increate = () -> {
             System.out.println(cnt);
+            LambdaMain.this.cnt++;
+            this.cnt++;
             return cnt++;
         };
 
@@ -33,6 +35,7 @@ public class LambdaMain {
             @Override
             public Integer call() throws Exception {
                 System.out.println(cnt);
+                LambdaMain.this.cnt++;
                 return cnt++;
             }
         };
