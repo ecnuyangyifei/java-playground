@@ -9,6 +9,7 @@ public class LambdaMain {
         classSort();
         anonymousSort();
         lambdaSort();
+        methodReferenceSort();
     }
 
     private static void classSort() {
@@ -36,6 +37,18 @@ public class LambdaMain {
         printArray(words);
         Arrays.sort(words, (a, b) -> a.length() - b.length());
         printArray(words);
+    }
+
+    private static void methodReferenceSort() {
+        String[] words = getUnsortedWords();
+        printArray(words);
+        Arrays.sort(words, LambdaMain::compareStringUsingLength);
+        printArray(words);
+    }
+
+
+    private static int compareStringUsingLength(String a, String b) {
+        return a.length() - b.length();
     }
 
 

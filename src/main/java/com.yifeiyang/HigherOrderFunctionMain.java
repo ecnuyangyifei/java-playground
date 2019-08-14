@@ -2,6 +2,7 @@ package com.yifeiyang;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.IntFunction;
 
 public class HigherOrderFunctionMain {
@@ -24,13 +25,17 @@ public class HigherOrderFunctionMain {
     }
 
     private static IntFunction getMapper(String condition) {
+
+        BiFunction<Integer, Integer, Integer> f = (Integer a, Integer b) -> a + b;
+        BiFunction<Integer, Integer, Integer> f2 = (a, b) -> a + b;
+
         switch (condition) {
             case "m2":
                 return i -> i * 2;
             case "mm":
                 return i -> i * i;
             case "a2":
-                return i -> i + 2;
+                return (int i) -> i + 2;
             default:
                 return i -> i;
         }
