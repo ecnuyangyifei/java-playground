@@ -1,44 +1,64 @@
 package com.yifeiyang;
 
-import java.util.concurrent.Callable;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class LambdaMain {
     public static void main(String[] args) throws Exception {
-        LambdaMain lm = new LambdaMain();
-        Callable<Integer> lambdaCall = lm.lambdaClosure();
-        lambdaCall.call();
-        lambdaCall.call();
-        lambdaCall.call();
-
-        Callable<Integer> anonymousCall = lm.anonymousInnerClass();
-        anonymousCall.call();
-        anonymousCall.call();
-        anonymousCall.call();
-
+        classSort();
+        anonymousSort();
+        lambdaSort();
     }
 
-    private int cnt = 0;
-    private Callable<Integer> lambdaClosure() {
-
-        Callable<Integer> increate = () -> {
-            System.out.println(cnt);
-            LambdaMain.this.cnt++;
-            this.cnt++;
-            return cnt++;
-        };
-
-        return increate;
+    private static void classSort() {
+        String[] words = getUnsortedWords();
+        printArray(words);
+        Arrays.sort(words, new CompareUsingLength());
+        printArray(words);
     }
 
-    private Callable<Integer> anonymousInnerClass() {
-        return new Callable<Integer>() {
+    private static void anonymousSort() {
+        String[] words = getUnsortedWords();
+        printArray(words);
+        Arrays.sort(words, new Comparator<String>() {
             @Override
-            public Integer call() throws Exception {
-                System.out.println(cnt);
-                LambdaMain.this.cnt++;
-                return cnt++;
+            public int compare(String a, String b) {
+                return a.length() - b.length();
             }
+        });
+        printArray(words);
+    }
+
+
+    private static void lambdaSort() {
+        String[] words = getUnsortedWords();
+        printArray(words);
+        Arrays.sort(words, (a, b) -> a.length() - b.length());
+        printArray(words);
+    }
+
+
+
+    static class CompareUsingLength implements Comparator<String> {
+        @Override
+        public int compare(String a, String b) {
+            return a.length() - b.length();
+        }
+    }
+
+    private static String[] getUnsortedWords() {
+        return new String[]{
+                "hello",
+                "hi",
+                "world",
+                "java"
         };
+    }
+
+    private static <T> void printArray(T[] ts) {
+        List l = Arrays.asList(ts);
+        System.out.println(String.join(",", l));
     }
 
 }
