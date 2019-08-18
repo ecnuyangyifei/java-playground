@@ -1,13 +1,12 @@
 package com.yifeiyang.classLoader;
 
-import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ClassLoaderMain {
     public static void main(String[] args) {
+
         System.out.println("ClassLoaderMain: " + getClassLoaderChain(ClassLoaderMain.class.getClassLoader()));
-        System.out.println("java.sql.Date: " + getClassLoaderChain(Date.class.getClassLoader()));
         System.out.println("Object: " + getClassLoaderChain(Object.class.getClassLoader()));
     }
 

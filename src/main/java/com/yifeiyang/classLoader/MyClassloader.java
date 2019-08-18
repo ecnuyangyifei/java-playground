@@ -7,13 +7,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Consumer;
 
-public class MyClassloader extends ClassLoader {
+public class MyClassloader extends ClassLoader implements Consumer {
 
-
+    @Override
+    public void accept(Object o) {
+        System.out.println(o);
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         ClassLoader myClassloader = new MyClassloader();
-        Constructor<? extends Consumer> echoConstructor = myClassloader.loadClass("com.yifeiyang.classLoader.EchoUsingMyClassLoader").asSubclass(Consumer.class).getConstructor();
+        Constructor<? extends Consumer> echoConstructor = myClassloader.loadClass("com.yifeiyang.classLoader.MyClassloader").asSubclass(Consumer.class).getConstructor();
 
         Consumer<String> echo = echoConstructor.newInstance();
         echo.accept("hi");
@@ -65,6 +68,5 @@ public class MyClassloader extends ClassLoader {
 
         return out.toByteArray();
     }
-
 
 }

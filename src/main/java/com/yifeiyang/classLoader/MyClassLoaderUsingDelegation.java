@@ -14,10 +14,15 @@ import java.util.function.Consumer;
  *只有当父加载器都无法加载类时会触发自定义的处理逻辑
  *为简化代码，加载类时传了错误的类名，以此来调用自定义的加载逻辑，这只是为了演示类加载机制以及自定义类加载器的方式，实际应用应避免 
  */
-public class MyClassLoaderUsingDelegation extends ClassLoader {
+public class MyClassLoaderUsingDelegation extends ClassLoader implements Consumer {
+
+    @Override
+    public void accept(Object o) {
+        System.out.println(o);
+    }
 
     private static final String WRONG_CLAZZ_NAME = "wrong";
-    private static final String REAL_CLAZZ_NAME = "com.yifeiyang.classLoader.EchoUsingMyClassLoader";
+    private static final String REAL_CLAZZ_NAME = "com.yifeiyang.classLoader.MyClassLoaderUsingDelegation";
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         ClassLoader appClassLoader = new MyClassLoaderUsingDelegation();
@@ -62,5 +67,6 @@ public class MyClassLoaderUsingDelegation extends ClassLoader {
 
         return out.toByteArray();
     }
+
 
 }
