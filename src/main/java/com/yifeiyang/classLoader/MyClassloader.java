@@ -29,6 +29,12 @@ public class MyClassloader extends ClassLoader {
                 }
                 String clazzUrl = convertClazzNameToURI(name);
                 InputStream clazzInputStream = MyClassloader.class.getResourceAsStream(clazzUrl);
+                if(clazzInputStream == null) {
+                    System.out.println(name + " not locates in " + clazzUrl);
+                    System.out.println("Please compile " + clazzUrl + " firstly");
+                    throw new ClassNotFoundException(name);
+                }
+        
                 try {
                     byte[] clazzBytes = inputStreamToBytes(clazzInputStream);
                     System.out.println(name + " loaded using my classloader");
