@@ -9,7 +9,7 @@ public class GenericMain {
 
     /**
      * Java 泛型的类型是不变的，List<String>, 与List<Object>是完全没有关系的类型，List<String>不能代替List<Object>
-     * 而对于类型String 和Object则是由关系的，String继承自Object，在任何需要Object的地方都可以由String代替,反之则不可以，是协变的
+     * 而对于类型String 和Object则是有关系的，String继承自Object，在任何需要Object的地方都可以由String代替,反之则不可以，是协变的
      * Java数组也是协变的，即是String[]可以代替Object[]
      * 
      * 声明List<Object>,可以添加String,Number...各种类型，因为Java类型是协变的，但List<Object>这一泛型类型是不变的
